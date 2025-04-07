@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Charl Amaba</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #F8FAFD;
+            color: light-dark(#000000, #00ff00);
+            background-color: light-dark(#F8FAFD, #000000);
+        }
+        
+        .wrapper {
+            width: 80%;
+            background: inherit;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: inherit;
+            display: flex;
+            gap: 30px;
+            background: inherit;
+            padding: 20px 0;
+            z-index: 1;
+        }
+
+        header::after {
+            content: '';
+            width: 100%;
+            height: 15px;
+            background: inherit;
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+        }
+
+        .profile-pic {
+            border-radius: 15px;
+        }
+
+        .details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+
+        .details h1 {
+            font-size: min(9vw, 5rem);
+            margin: 0;
+        }
+
+        .details h2 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        ul.contacts {
+            display: flex;
+            flex-wrap: wrap;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        ul.contacts li:not(:first-child):before{
+            content: '\00a0|\00a0';
+        }
+
+        #experiences {
+            margin-top: 200px;
+            display: flex;
+        }
+
+        .mobile-view {
+            width: -webkit-fill-available;
+            display: none;
+        }
+
+        .web-view {
+            display: flex;
+        }
+
+        .thumbnail-container {
+            width: 150px;
+            box-sizing: border-box;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 20px;
+        }
+
+        .thumbnail {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            border-radius: 10px;
+            transition: transform 0.2s;
+            aspect-ratio: 1;
+        }
+
+        .thumbnail:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 8px #DDDDDD;
+        }
+
+        .thumbnail-active {
+            transform: scale(1.1);
+            box-shadow: 0 0 8px #DDDDDD;
+        }
+
+        .preview-container {
+            width: -webkit-fill-available;
+            position: fixed;
+            margin-left: 180px;
+            margin-top: 30px;
+            margin-right: 10%;
+        }
+
+        .preview {
+            padding: 20px;
+            border-radius: 20px;
+            /* background-color: #E9F0FE; */
+            box-shadow: 0 0 5px #DDDDDD;
+            max-height: 60vh;
+            overflow: scroll;
+
+            container-type: inline-size;
+        }
+
+        .preview::-webkit-scrollbar-track {
+            background: yellow;
+            margin: 30px 0;
+        }
+
+        .preview-mobile-container {
+            width: 100%;
+        }
+
+        .preview-mobile {
+            width: -webkit-fill-available;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 5px #DDDDDD;
+            overflow: scroll;
+            container-type: inline-size;
+        }
+
+        .name, .company {
+            margin: 5px 0;
+        }
+        
+        .role {
+            display: flex;
+            margin: 10px 0;
+        }
+        
+        
+        .start-end {
+            font-size: 1rem;
+            font-weight: normal;
+        }
+
+        .start-end::before {
+            content: '\00a0| ';
+        }
+
+        .responsibilities-container h4 {
+            margin: 0;
+        }
+        
+        .responsibilities-container ul {
+            margin-top: 5px;
+            padding-left: 1em;
+        }
+    
+
+        ul.techs {
+            display: flex; 
+            gap: 10px; 
+            flex-wrap: wrap; 
+            list-style-type: none;
+            padding: 0; 
+        }
+        ul.techs li {
+            min-width: 25px;
+            border: 2px solid #333; 
+            padding: 5px; 
+            border-radius: 8px; 
+            text-align: center; 
+        }
+
+        @media only screen and (max-width: 992px) {
+            .wrapper {
+                width: 90%;
+            }
+        }
+
+        @media (max-width: 768px) { 
+            .wrapper {
+                width: 94%;
+            }
+
+            .preview-container {
+                margin-right: 5%;
+            }
+        }
+
+        @media (max-width: 576px) { 
+            .wrapper {
+                width: 100%;
+            }
+
+            header {
+                position: relative;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .details {
+                align-items: center;
+            }
+
+            .details h1{
+                font-size: 13vw;
+            }
+            .details h2{
+                font-size: 7vw;
+            }
+        
+            #experiences {
+                margin: 0px;
+            }
+
+            .web-view {
+                display: none;
+            }
+
+            .mobile-view {
+                display: flex;
+            }
+        }
+
+        @media (max-width: 400px) { 
+            ul.contacts {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            ul.contacts li:not(:first-child):before{
+                content: '';
+            }
+
+        }
+
+        @container  (max-width: 576px) {
+            .role {
+                flex-direction: column;
+            }
+
+            .start-end::before {
+                content: '';
+            }
+        }        
+
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <header>
+            <img class="profile-pic" src="https://media.licdn.com/dms/image/v2/C5603AQH9v_u5CK3dLQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1594825418062?e=2147483647&v=beta&t=KV6blUyu-kHNPKYaPSU-3l7KDzRX8XM8zkHkPu4G_6E" width="150" height="150" alt="Profile Picture">
+            <div class="details">
+                <h1>Charl Amaba</h1>
+                <h2>Software Engineer</h2>
+                <ul class="contacts"> 
+                    <li>+639770041745</li>
+                    <li>charlamaba@gmail.com</li>
+                </ul>
+                
+                
+            </div>
+            
+        </header>
+
+        <section id="experiences">
+            <div class="mobile-view">
+                <div class="preview-mobile-container" id="preview-mobile-container">
+                </div>
+            </div>
+
+            <div class="web-view">
+                <div id="thumbnails" class="thumbnail-container">
+                </div>
+
+                <div class="preview-container">
+                    <div id="preview" class="preview"></div>
+                </div>
+            </div>
+
+        </section>
+    </div>  
+
+    <script>
+        const jsonData = `{
+            "name": "Charl Amaba",
+            "profilePic": "https://media.licdn.com/dms/image/v2/C5603AQH9v_u5CK3dLQ/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1594825418062?e=2147483647&v=beta&t=KV6blUyu-kHNPKYaPSU-3l7KDzRX8XM8zkHkPu4G_6E",
+            "contacts": {
+                "mobile": "0977 004 1745",
+                "email": "charlamaba@gmail.com",
+                "linkedin" : "https://ph.linkedin.com/in/charlamaba"
+            },
+            "projects": [
+                {
+                    "name": "Cookie Consent Manager",
+                    "thumbnail": null,
+                    "image": null,
+                    "description": "TrustArc CCM (Customer Consent Management) is a platform that helps businesses manage and track customer consent for data privacy, ensuring compliance with privacy laws like GDPR and CCPA. It streamlines the process of obtaining, recording, and updating consent from users for data collection and processing.",
+                    "moreDeets": "",
+                    "role": "Developer",
+                    "start": "2021-09", 
+                    "end": "Present",
+                    "responsibilities": [
+                        "Maintained client-facing legacy preference portal built with Google Web Toolkit",
+                        "Spike and implement new features",
+                        "Fix bugs and maintain codebase",
+                        "Write and maintain unit and end-to-end tests"
+                    ],
+                    "tech": ["Java", "Springboot", "GWT", "Javascript", "Angular", "Typescript", "PSQL", "AWS", "Jenkins", "Git"],
+                    "company": "Truste Web Services Technologies, Inc.",
+                    "companyLogo": "https://media.licdn.com/dms/image/v2/D560BAQEZvU9LQBlK0Q/company-logo_200_200/company-logo_200_200/0/1711545481129/trustarc_logo?e=1749081600&v=beta&t=V9-oZykcw9hHLFrQqJBeHV-63unwI5IKoRuIjButE2w",
+                    "hidden": false    
+                },
+                {
+                    "name": "Cookie Consent Manager Automation",
+                    "thumbnail": null,
+                    "image": null,
+                    "description": "Built using the Selenium and Playwright frameworks, paired with Java for scripting and execution.",
+                    "moreDeets": "Joined to ramped up Playwright automation test creation. Started the Playwright development and applied a new poject structure that is less overwhelming and could better track test steps created. Helped the team in minimizing failures by handling old exceptions and providing new workarounds to prevent blockage and having to run the test manually. Drive roadmap creation to have a goal in mind and to prioritized what's needed aside from increasing code coverage.",
+                    "role": "Automation Developer",
+                    "start": "2024-08", 
+                    "end": "Present",
+                    "responsibilities": [
+                        "Collaborated with cross-functional teams to design test plans, improving product reliability and reducing defects",
+                        "Developed and maintained automated test suites for thorough regression testing",
+                        "Conducted tests to ensure optimal functionality, security, and scalability for web-based SaaS",
+                        "Automated end-to-end scenarios and designed API tests for comprehensive coverage",
+                        "Designed and executed API tests to validate API functionality and reliability",
+                        "Performed penetration testing to identify and mitigate security vulnerabilities",
+                        "Managed bug tracking and project tasks for timely delivery",
+                        "Integrated automated tests into CI/CD pipelines to streamline releases"
+                    ],
+                    "tech": ["Java", "Playwright", "Selenium", "PSQL", "AWS", "Git"],
+                    "company": "Truste Web Services Technologies, Inc.",
+                    "companyLogo": "https://media.licdn.com/dms/image/v2/D560BAQEZvU9LQBlK0Q/company-logo_200_200/company-logo_200_200/0/1711545481129/trustarc_logo?e=1749081600&v=beta&t=V9-oZykcw9hHLFrQqJBeHV-63unwI5IKoRuIjButE2w",
+                    "hidden": false    
+                },
+                {
+                    "name": "KYOCERA Device Manager",
+                    "thumbnail": "https://res.cloudinary.com/df8ibhdrf/image/upload/kyocera_ndm_hfkxko.png",
+                    "image": null,
+                    "description": "A comprehensive software solution that allows administrators to monitor, configure, and manage KYOCERA MFPs across an organization. It provides real-time device status monitoring, usage tracking, and alerts for maintenance needs, such as low toner or paper jams. Kyocera Device Manager helps streamline device management by offering centralized control, user access management, and secure printing options, ensuring efficient operation of Kyocera devices throughout the enterprise. It is designed to improve workflow, reduce downtime, and enhance the overall productivity of the device fleet.",
+                    "moreDeets": "",
+                    "role": "Senior Developer",
+                    "start": "2017-01", 
+                    "end": "2017-12",
+                    "responsibilities": [
+                        "Implement new features",
+                        "Fix bugs and maintain codebase",
+                        "Write and maintain unit tests"  
+                    ],
+                    "tech": ["C#", ".Net Core", "Typescript", "Javascript", "Firebird", "MSSQL", "Git"],
+                    "company": "KYOCERA Document Solutions Development Philippines, Inc.",
+                    "companyLogo": "https://media.licdn.com/dms/image/v2/D560BAQFQNapHcBo_Yg/company-logo_200_200/company-logo_200_200/0/1692173934397?e=1749081600&v=beta&t=sQXHwCAAq9ClTUN_6dh0_DiAdrmuSbXzFtnCrtUS8CA",
+                    "hidden": false    
+                },
+                {
+                    "name": "KYOCERA SANE Driver",
+                    "thumbnail": null,
+                    "image": null,
+                    "description": "A Linux scanner driver that allows KYOCERA MFPs to interface with the SANE (Scanner Access Now Easy) framework, enabling the use of scanning features on Linux-based systems. It ensures compatibility between Kyocera devices and various scanning applications, providing a standardized method for document scanning.",
+                    "moreDeets": "Led the development for ARM architecture support for both USB and Network scanning including the development of installer on Debian environment. Refactored legacy code base to reduce complexity and improve maintainability during version up.",
+                    "role": "Tech Lead",
+                    "start": "2019-05", 
+                    "end": "2020-11",
+                    "responsibilities": [
+                        "Work with Requirements Analysis Team to identify features that can be implemented",
+                        "WBS: Breaking down of task, task assigment, and scheduling",
+                        "Implement new features",
+                        "Fix bugs and maintain codebase",
+                        "ARM architecture development for Debian and RPM including installer",
+                        "Simplified code base and data structures"
+                    ],
+                    "tech": ["C", "Perforce"],
+                    "company": "KYOCERA Document Solutions Development Philippines, Inc.",
+                    "companyLogo": "https://media.licdn.com/dms/image/v2/D560BAQFQNapHcBo_Yg/company-logo_200_200/company-logo_200_200/0/1692173934397?e=1749081600&v=beta&t=sQXHwCAAq9ClTUN_6dh0_DiAdrmuSbXzFtnCrtUS8CA",
+                    "hidden": false    
+                },
+                {
+                    "name": "KYOCERA TWAIN Driver GDI, 2.0, 3.0",
+                    "thumbnail": null,
+                    "image": null,
+                    "description": "A driver that enables KYOCERA MFPs to interface with TWAIN-compatible scanning applications on Windows and other operating systems. It provides a standardized protocol for image acquisition, allowing users to scan documents seamlessly from a variety of software applications that support the TWAIN standard.",
+                    "moreDeets": "",
+                    "role": "Tech Lead",
+                    "start": "2018-08", 
+                    "end": "2020-11",
+                    "responsibilities": [
+                        "Win32 Training for new hires",
+                        "Work with Requirements Analysis Team to identify features that can be implemented",
+                        "WBS: Breaking down of task, task assigment, and scheduling",
+                        "Fix bugs and maintain codebase",
+                        "Internal documentation for Dev & QA guides in setup, usage, and debugging the application"
+                    ],
+                    "tech": ["C++", "Win32", "Python", "Perforce"],
+                    "company": "KYOCERA Document Solutions Development Philippines, Inc.",
+                    "companyLogo": "https://media.licdn.com/dms/image/v2/D560BAQFQNapHcBo_Yg/company-logo_200_200/company-logo_200_200/0/1692173934397?e=1749081600&v=beta&t=sQXHwCAAq9ClTUN_6dh0_DiAdrmuSbXzFtnCrtUS8CA",
+                    "hidden": false    
+                },
+                {
+                    "name": "KYOCERA WIA Driver",
+                    "thumbnail": null,
+                    "image": null,
+                    "description": "A Windows Image Acquisition (WIA) driver that enables KYOCERA MFPs to integrate with Windows-based systems for scanning operations. It provides a standardized interface for scanning applications, allowing users to easily access and utilize scanning features on Kyocera devices through the Windows operating system.",
+                    "moreDeets": "",
+                    "role": "Tech Lead",
+                    "start": "2019-05", 
+                    "end": "2020-11",
+                    "responsibilities": [
+                        "WBS: Breaking down of task, task assigment, and scheduling",
+                        "Fix bugs and maintain codebase",
+                        "Internal documentation for Dev & QA guides in setup, usage, and debugging the application"
+                    ],
+                    "tech": ["C++", "Win32", "Bash", "Perforce"],
+                    "company": "KYOCERA Document Solutions Development Philippines, Inc.",
+                    "companyLogo": "https://media.licdn.com/dms/image/v2/D560BAQFQNapHcBo_Yg/company-logo_200_200/company-logo_200_200/0/1692173934397?e=1749081600&v=beta&t=sQXHwCAAq9ClTUN_6dh0_DiAdrmuSbXzFtnCrtUS8CA",
+                    "hidden": false    
+                },
+                {
+                    "name": "KYOCERA Quick Scan 2",
+                    "thumbnail": "https://kyoceraquickscan.org/wp-content/uploads/2023/12/kyocera_logo.png",
+                    "image": null,
+                    "description": "A scanning software designed for KYOCERA MFPs that streamlines the document scanning process. It allows users to quickly scan, preview, and save documents directly to specified destinations such as email or network folders. The software is optimized for ease of use and fast document management, improving workflow efficiency for businesses.",
+                    "moreDeets": "The version 2 was a move to reduce development complexity by using Object-oriented programming and Windows Presentation Foundation with the MVVM approach. This lead development and bug fixig way faster compared to the first version. C++ code is still being used but mainly for communicating with KYOCERA propeitery libraries.",
+                    "role": "Lead Developer",
+                    "start": "2018-08", 
+                    "end": "2020-11",
+                    "responsibilities": [
+                        "Work with Requirements Analysis Team to identify features that can be implemented",
+                        "WBS: Breaking down of task, task assigment, and scheduling",
+                        "Implement new features",
+                        "Fix bugs and maintain codebase",
+                        "Automated App build process and commits to respective MFP repos",
+                        "Write and naintained a minimum of 80% unit + end-to-end tests",
+                        "Internal documentation for Dev & QA guides in setup, usage, and debugging the application",
+                        "2nd placer for KYOCERA President’s Award 2018"
+                    ],
+                    "tech": ["C#", "WPF", ".Net", "C++", "Python", "Perforce"],
+                    "company": "KYOCERA Document Solutions Development Philippines, Inc.",
+                    "companyLogo": "https://media.licdn.com/dms/image/v2/D560BAQFQNapHcBo_Yg/company-logo_200_200/company-logo_200_200/0/1692173934397?e=1749081600&v=beta&t=sQXHwCAAq9ClTUN_6dh0_DiAdrmuSbXzFtnCrtUS8CA",
+                    "hidden": false    
+                },
+                {
+                    "name": "KYOCERA Quick Scan",
+                    "thumbnail": "https://kyoceraquickscan.org/wp-content/uploads/2023/12/kyocera_logo.png",
+                    "image": null,
+                    "description": "A scanning software designed for KYOCERA MFPs that streamlines the document scanning process. It allows users to quickly scan, preview, and save documents directly to specified destinations such as email or network folders. The software is optimized for ease of use and fast document management, improving workflow efficiency for businesses.",
+                    "moreDeets": "Started as front-end contributor; promoted to lead full-stack development for MVP.",
+                    "role": "Lead Developer",
+                    "start": "2018-04", 
+                    "end": "2020-11",
+                    "responsibilities": [
+                        "Implement new features",
+                        "Fix bugs and maintain codebase",
+                        "Unit Test"
+                    ],
+                    "tech": ["C++", "Win32", "Python", "Perforce"],
+                    "company": "KYOCERA Document Solutions Development Philippines, Inc.",
+                    "companyLogo": "https://media.licdn.com/dms/image/v2/D560BAQFQNapHcBo_Yg/company-logo_200_200/company-logo_200_200/0/1692173934397?e=1749081600&v=beta&t=sQXHwCAAq9ClTUN_6dh0_DiAdrmuSbXzFtnCrtUS8CA",
+                    "hidden": false    
+                },
+                {
+                    "name": "KYOCERA Net Viewer Automation",
+                    "thumbnail": "https://res.cloudinary.com/df8ibhdrf/image/upload/kyocera_knv_fnabsi.png",
+                    "image": null,
+                    "description": "Built using the Ranorex paired with C# to create and execute automated test for KYOCERA Net Viewer",
+                    "moreDeets": "",
+                    "role": "Automation Developer",
+                    "start": "2018-01", 
+                    "end": "2018-08",
+                    "responsibilities": [
+                        "Automation Test development"
+                    ],
+                    "tech": ["C#", "Ranorex", "Perforce"],
+                    "company": "KYOCERA Document Solutions Development Philippines, Inc.",
+                    "companyLogo": "https://media.licdn.com/dms/image/v2/D560BAQFQNapHcBo_Yg/company-logo_200_200/company-logo_200_200/0/1692173934397?e=1749081600&v=beta&t=sQXHwCAAq9ClTUN_6dh0_DiAdrmuSbXzFtnCrtUS8CA",
+                    "hidden": false    
+                },
+                {
+                    "name": "KYOCERA Printer Driver",
+                    "thumbnail": "https://res.cloudinary.com/df8ibhdrf/image/upload/kyocera_kx_hvfcnp.png",
+                    "image": null,
+                    "description": "A software component that allows KYOCERA printers and multifunction devices to communicate with computers and operating systems. It translates print jobs from software applications into a format that the Kyocera device can understand and process. The driver ensures compatibility with various operating systems, enabling reliable printing, configuration of print settings, and access to device features like duplex printing, color management, and security options.",
+                    "moreDeets": "",
+                    "role": "Developer",
+                    "start": "2018-01", 
+                    "end": "2018-08",
+                    "responsibilities": [
+                        "Features Implementation",
+                        "Fix bugs and maintain codebase"
+                    ],
+                    "tech": ["C++", "Win32", "Perforce"],
+                    "company": "KYOCERA Document Solutions Development Philippines, Inc.",
+                    "companyLogo": "https://media.licdn.com/dms/image/v2/D560BAQFQNapHcBo_Yg/company-logo_200_200/company-logo_200_200/0/1692173934397?e=1749081600&v=beta&t=sQXHwCAAq9ClTUN_6dh0_DiAdrmuSbXzFtnCrtUS8CA",
+                    "hidden": false    
+                },
+                {
+                    "name": "Gateway for Windows",
+                    "thumbnail": "https://res.cloudinary.com/df8ibhdrf/image/upload/kyocera_kfs_hu1z9a.png",
+                    "image": null,
+                    "description": "A software solution designed to integrate legacy KYOCERA MFPs with modern document management and workflow systems. Unlike KYOCERA Fleet Services, which is intended for newer devices, KYOCERA Gateway enables older models to connect to network environments, allowing secure access to scanning, printing, and document storage services. It provides centralized management for legacy devices, facilitating device monitoring, user authentication, and seamless document workflows across the enterprise.",
+                    "moreDeets": "",
+                    "role": "Developer",
+                    "start": "2017-01", 
+                    "end": "2017-12",
+                    "responsibilities": [
+                        "Implement new features",
+                        "Fix bugs and maintain codebase",
+                        "Unit Test"  
+                    ],
+                    "tech": ["Java", "C", "Wicket", "Maven", "Perforce", "TFS"],
+                    "company": "KYOCERA Document Solutions Development Philippines, Inc.",
+                    "companyLogo": "https://media.licdn.com/dms/image/v2/D560BAQFQNapHcBo_Yg/company-logo_200_200/company-logo_200_200/0/1692173934397?e=1749081600&v=beta&t=sQXHwCAAq9ClTUN_6dh0_DiAdrmuSbXzFtnCrtUS8CA",
+                    "hidden": false    
+                },
+                {
+                    "name": "Department of Computer, Information Sciences and Mathematics",
+                    "thumbnail": null,
+                    "image": null,
+                    "description": "",
+                    "moreDeets": "",
+                    "role": "Instructor",
+                    "start": "2019-08", 
+                    "end": "2021-01",
+                    "responsibilities": [ 
+                        "Developed and organized comprehensive syllabi for courses, outlining key learning objectives, course structure, topics, assignments, deadlines, and grading criteria",
+                        "Designed and implemented interactive classroom activities that supported course objectives and enhanced student learning",
+                        "Created quizzes and formative assessments to evaluate student comprehension, track progress, and identify areas for improvement",
+                        "Assessed project outcomes, provided feedback, and helped students enhance their skills in problem-solving, collaboration, and time management",
+                        "Maintained accurate records of grades, tracked student progress, and communicated performance updates to students in a timely manner"
+                    ],
+                    "tech": ["Human-Computer Interaction", "Information Management 1 & 2", "Introduction to Intelligent Systems", "Thesis Panel"],
+                    "company": "University of San Carlos",
+                    "companyLogo": "https://media.licdn.com/dms/image/v2/C4E0BAQGfVtCK-CVCfQ/company-logo_200_200/company-logo_200_200/0/1630644801951/university_of_san_carlos_logo?e=1749081600&v=beta&t=9SbDAwzRYT8z-oXkIlChFRShoutFXtJjJUfkk4J-TFs",
+                    "hidden": false    
+                },
+                {
+                    "name": "POS Test Automation",
+                    "thumbnail": null,
+                    "image": "",
+                    "description": "",
+                    "moreDeets": "",
+                    "role": "Automation Developer Intern",
+                    "start": "2015-10", 
+                    "end": "2016-02",
+                    "responsibilities": [ 
+                    ],
+                    "tech": [],
+                    "company": "NCR Corporation",
+                    "companyLogo": "https://media.licdn.com/dms/image/v2/D560BAQHoWNpEijF34Q/company-logo_200_200/company-logo_200_200/0/1688565940760/ncr_corporation_logo?e=1749686400&v=beta&t=K1cor_VqbjK5qqhsIRFjmWsMxffLYeD62cUybPWjuac",
+                    "hidden": true    
+                },
+                {
+                    "name": "Sangunian Kabataan",
+                    "thumbnail": null,
+                    "image": "",
+                    "description": "",
+                    "moreDeets": "Elected as the Barangay Sanguinan Kabataan Chairman. Main projects includes in modernizing and reducing Barangay monthly expenses such as Computers, Printers, and Office Supply. Prior to this, the barangay uses internet cafe's and printing services to create reports and other related documents.",
+                    "role": "SK Chairman",
+                    "start": "2010-12", 
+                    "end": "2013-11",
+                    "responsibilities": [ 
+                        "Propose and implement meaningful projects that benefits the barangay",
+                        "Perform monthly pintakasi",
+                        "Attend orientations"
+                    ],
+                    "tech": [],
+                    "company": "Brgy. 21-A Tacloban City",
+                    "companyLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Sangguniang_Kabataan_logo.svg/1200px-Sangguniang_Kabataan_logo.svg.png"
+                }
+            ]
+        }`;
+        const resume = JSON.parse(jsonData); 
+
+        function parseDate(dateString) {
+            if (!isNaN(Date.parse(dateString))) {
+                const date = new Date(dateString + "-01");
+                const formattedDate = date.toLocaleString('en-US', {
+                    year: 'numeric',
+                    month: 'short' // use long for non-abbreviated
+                });
+                return formattedDate;
+            }
+
+            return dateString;
+        }
+
+        function generateProjectHtml(projectName) {
+            const project = resume.projects.find(proj => proj.name === projectName);
+            var responsibilities = '';
+            if (0 !== project.responsibilities.length) {
+                project.responsibilities.forEach(responsibility => responsibilities += `<li>${responsibility}</li>` );
+                responsibilities = `
+                    <h4>Key Responsibilities </h4>
+                    <ul>${responsibilities}</ul>
+                    `;
+            }
+
+            var techs = '';
+            project.tech.forEach(tech => techs += `<li>${tech}</li>` );
+
+            return `
+                <h1 class="name">${project.name}</h1>
+                <h4 class="company">${project.company} </h4>
+                <h4 class="role">${project.role} <span class="start-end">${parseDate(project.start)} – ${parseDate(project.end)}</span></h4>
+                <p>${project.description}</p>
+                <p>${project.moreDeets}</p>
+
+                <div class="responsibilities-container">${responsibilities}</div>
+                <ul class='techs'>${techs}</ul>
+            `;
+
+        }
+
+        function showProject(projectName) {
+            showThumbnailActive(projectName);
+            var preview = document.getElementById("preview");
+            preview.innerHTML = generateProjectHtml(projectName);
+        }
+
+        function showProjectMobileView(projectName) {
+            const previewContainer = document.getElementById("preview-mobile-container");
+            var preview = document.createElement('div');
+            preview.className = 'preview-mobile';
+            preview.innerHTML = generateProjectHtml(projectName);
+            previewContainer.appendChild(preview);
+        }
+
+        function showThumbnailActive(projectName) {
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            thumbnails.forEach(thumbnail => {
+                if (thumbnail.ariaLabel == projectName) {
+                    thumbnail.classList.add("thumbnail-active");
+                } else {
+                    thumbnail.classList.remove("thumbnail-active");
+                }
+            });
+        }
+
+        function updatePreview() {
+            let closestThumbnail = null;
+            let closestDistance = Infinity;
+            const thumbnails = document.querySelectorAll('.thumbnail');
+
+            thumbnails.forEach(thumbnail => {
+                const thumbnailRect = thumbnail.getBoundingClientRect();
+                const elementCenter = thumbnailRect.top + thumbnailRect.height / 2;
+                const viewportHeight = window.innerHeight / 2;
+                
+                const distance = Math.abs(elementCenter - viewportHeight);
+
+                if (distance < closestDistance) {
+                    closestDistance = distance;
+                    closestThumbnail = thumbnail;
+                }
+            });
+
+            // If a centered thumbnail is found, update the preview image
+            if (closestThumbnail) {
+                showProject(closestThumbnail.ariaLabel)
+            }
+        }
+        
+        function centerFirstAndLastThumbnail() {
+            var thumbnails = document.getElementById('thumbnails');
+            var firstChild = thumbnails.firstElementChild;
+            var lastChild = thumbnails.lastElementChild;
+            var itemHeight = firstChild.clientHeight;
+            var screenHeight = document.documentElement.clientHeight;
+            var margin = (screenHeight - itemHeight) / 2;
+
+            firstChild.style.marginTop = margin - 200 + 'px';
+            lastChild.style.marginBottom = margin + 'px';
+        }
+
+        function loadProjects() {
+            const thumbnails = document.getElementById("thumbnails");
+            const companyLogoPlaceholder = 'https://www.w3schools.com/html/pic_trulli.jpg';
+            resume.projects.forEach(project => {
+                if (!project.hidden) {
+                    var img = document.createElement('img');
+                    img.src = project.thumbnail || project.companyLogo || companyLogoPlaceholder;
+                    img.alt = project.name;
+                    img.ariaLabel = project.name;
+                    img.className = 'thumbnail';
+                    img.onclick = function() {
+                        showProject(project.name);
+                    };
+
+                    thumbnails.appendChild(img);
+                    showProjectMobileView(project.name)
+                }
+                
+            });
+
+            centerFirstAndLastThumbnail();
+            showProject(resume.projects[0].name);
+            window.addEventListener('scroll', updatePreview);
+        }
+
+        function setTheme() {
+            const initialScheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            document.body.style.colorScheme = initialScheme;
+
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+                const newScheme = e.matches ? 'dark' : 'light';
+                document.body.style.colorScheme = newScheme;
+            });
+        }
+
+        setTheme();
+        loadProjects();
+    </script>
+
+</body>
+</html>
