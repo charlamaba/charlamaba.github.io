@@ -97,6 +97,25 @@
             display: flex;
         }
 
+        .top-bar {
+            margin-top: 200px;
+            width: -webkit-fill-available;
+            position: fixed;
+            margin-left: 180px;
+            margin-right: 10%;
+        }
+        
+        .download-btn {
+            padding: 10px 10px;
+            text-decoration: none;
+            border-radius: 8px; 
+        }
+
+        .download-btn:hover {
+            background-color: white;
+            box-shadow: 0 0 5px #DDDDDD;
+        }
+
         .mobile-view {
             width: -webkit-fill-available;
             display: none;
@@ -139,7 +158,7 @@
             width: -webkit-fill-available;
             position: fixed;
             margin-left: 180px;
-            margin-top: 30px;
+            margin-top: 40px;
             margin-right: 10%;
 
             border-radius: 20px;
@@ -243,6 +262,11 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 10px;
+                padding-bottom: 0;
+            }
+
+            header::after {
+                display: none;
             }
 
             .details {
@@ -256,6 +280,12 @@
                 font-size: 7vw;
             }
         
+            .top-bar {
+                position: relative;
+                margin-top: 15px;
+                margin-bottom: 10px;
+            }
+
             #experiences {
                 margin: 0px;
             }
@@ -307,7 +337,11 @@
                 </ul>
             </div>
         </header>
-        
+        <section class="top-bar">
+            <a href="https://drive.google.com/uc?export=download&id=YOUR_FILE_ID" class="download-btn">
+                Download Resume (PDF)
+            </a>
+        </section>
         <section id="experiences">
             <div class="mobile-view">
                 <div class="preview-mobile-container" id="preview-mobile-container">
