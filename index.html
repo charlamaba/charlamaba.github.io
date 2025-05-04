@@ -7,11 +7,25 @@
     <meta name="description" content="Charl Amaba's professional portfolio showcasing web development, design, and software engineering projects. Explore my skills, experience, and achievements.">
     <title>Charl Amaba</title>
     <style>
+        .star {
+            position: absolute;
+            background: light-dark(transparent, #FFFFFF);
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: twinkle 2s infinite;
+            z-index: 1;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.3; }
+        }
+        
         body {
             font-family: 'Courier New', monospace;
-            background: #F8FAFD;
             color: light-dark(#000000, #00ff00);
-            background-color: light-dark(#F8FAFD, #000000);
+            background: light-dark(#F8FAFD, #000000); 
+            /* background-color: light-dark(#F8FAFD, #050521);  */
         }
         
         .wrapper {
@@ -46,6 +60,7 @@
 
         .profile-pic {
             border-radius: 15px;
+            z-index: 11;
         }
 
         .details {
@@ -126,22 +141,19 @@
             margin-left: 180px;
             margin-top: 30px;
             margin-right: 10%;
+
+            border-radius: 20px;
+            box-shadow: 0 0 5px #DDDDDD;
+
+            overflow: hidden;
         }
 
         .preview {
-            padding: 20px;
-            border-radius: 20px;
+            padding: 0 20px;
             /* background-color: #E9F0FE; */
-            box-shadow: 0 0 5px #DDDDDD;
             max-height: 60vh;
-            overflow: scroll;
-
+            overflow: auto;
             container-type: inline-size;
-        }
-
-        .preview::-webkit-scrollbar-track {
-            background: yellow;
-            margin: 30px 0;
         }
 
         .preview-mobile-container {
@@ -198,7 +210,7 @@
         }
         ul.techs li {
             min-width: 25px;
-            border: 2px solid #333; 
+            border: 2px solid light-dark(#000000, #00ff00); 
             padding: 5px; 
             border-radius: 8px; 
             text-align: center; 
@@ -312,6 +324,9 @@
             </div>
 
         </section>
+
+        <div id="lookAtTheStars"></div>
+        
     </div>  
 
     <script>
@@ -632,6 +647,7 @@
             let techs = techList.map(tech => `<li>${tech}</li>`).join('');
 
             return `
+                <br>
                 <h1 class="name">${project.name}</h1>
                 <h4 class="company">${project.company} </h4>
                 <h4 class="role">${project.role} <span class="start-end">${parseDate(project.start)} – ${parseDate(project.end)}</span></h4>
@@ -640,6 +656,7 @@
 
                 <div class="responsibilities-container">${responsibilities}</div>
                 <ul class='techs'>${techs}</ul>
+                <br>
             `;
         }
 
@@ -746,6 +763,30 @@
         
         loadProjects();
     </script>
+    <script>
+        function loadStars() {
+            const scrollHeight = document.documentElement.scrollHeight;
+            const numStars = scrollHeight / 5;
+            const stars = document.getElementById("lookAtTheStars");
+            for (let i = 0; i < numStars; i++) {
+                const star = document.createElement('div');
+                const size = Math.random() * 2 + 1 + 'px';
+                star.className = 'star';
+                star.style.width = size;
+                star.style.height = size;
+                star.style.top = Math.random() * scrollHeight + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                
+                const randomDuration = (Math.random() * 1.5 + 2).toFixed(8); // 0.5s to 2s
+                star.style.animation = `twinkle ${randomDuration}s infinite`;
+
+                // document.body.appendChild(star);
+                stars.appendChild(star);
+            }
+        }
+        loadStars();
+        
+      </script>
 
     <script>
         function setTheme() {
