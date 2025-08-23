@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Charl & Gladys - Wedding Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --pastel-yellow: #FDFD96;
+            --pastel-sage: #B2AC88;
+            --blush-pink: #F9C0C0;
+            --lilac: #C8A2C8;
+            --powder-blue: #B0E0E6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            line-height: 1.6;
+            color: white;
+            /* background-image: url('https://media.hswstatic.com/eyJidWNrZXQiOiJjb250ZW50Lmhzd3N0YXRpYy5jb20iLCJrZXkiOiJnaWZcL3NodXR0ZXJzdG9jay0yMjc4Nzc2MTg3LWhlcm8uanBnIiwiZWRpdHMiOnsicmVzaXplIjp7IndpZHRoIjo4Mjh9fX0='); */
+            /* background-image: url('./wedding_loop.gif'); */
+            background-image: url('./prenup.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            display: none
+        }
+
+
+        .overlay {
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100vh;
+            padding: 40px 0;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 8em;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .header p {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            margin: 20px 0;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.4), 
+                transparent);
+        }
+
+        .section h2 {
+            color: white;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .attire-colors {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .attire-colors div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .color-box {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .color-box-label {
+            text-align: center; 
+            margin-top: 10px;
+        }
+
+        .pastel-yellow-bg {
+            background-color: var(--pastel-yellow);
+        }
+
+        .pastel-sage-bg {
+            background-color: var(--pastel-sage);
+        }
+
+        .blush-pink-bg {
+            background-color: var(--blush-pink);
+        }
+
+        .lilac-bg {
+            background-color: var(--lilac);
+        }
+
+        .powder-blue-bg {
+            background-color: var(--powder-blue);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.2),
+                0 0 0 4px rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group input:-internal-autofill-selected{
+            background: rgba(255, 255, 255, 0.2) !important;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            /* transform: translateY(-2px); */
+            box-shadow: 
+                0 12px 40px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.6),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .btn:disabled {
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+            cursor: not-allowed;
+            box-shadow: none;
+            text-shadow: none;
+        }
+
+        .rsvp-note {
+            /* background: #f4e49c; */
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            text-align: center;
+            font-style: italic;
+        }
+
+
+        .accordion {
+            width: 100%;
+            border: none;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.1);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .accordion .btn {
+            border: none;
+            background: none;
+            transition: unset;
+            backdrop-filter: unset;
+            -webkit-backdrop-filter: unset;
+        }
+
+        .accordion .btn.active {
+            border-radius: 16px 16px 0 0;
+        }
+
+        ul {
+            list-style: none; 
+            padding: 0; 
+            font-size: 1em;
+            font-weight: normal;
+        }
+
+        li {
+            margin: 7px;
+        }
+
+        .text-align-center {
+            text-align: center
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 900px) {
+            .header h1 {
+                font-size: 14vw;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                background-image: url('./wedding_loop.gif');
+            }
+
+            .header h1 {
+                font-size: 15vw;
+            }
+            
+            .attire-colors {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .video-bg {
+                display: block;
+            }
+            
+            .header {
+                justify-content: flex-start;
+            }
+        }
+
+       
+        
+    </style>
+    <style>
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+    
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #unmuteBtn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            padding: 8px;
+            position: fixed;
+            opacity: 0.3;
+            right: 0;
+        }
+
+        #unmuteBtn:hover {
+            cursor: pointer;
+        }
+    </style>
+    <style>
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+        }
+
+        .countdown > div {
+            display: flex;
+        }
+
+        .countdown .value {
+            font-size: 4vw;
+            font-weight: bold;
+        }
+
+        .countdown .days::after,
+        .countdown .hours::after,
+        .countdown .minutes::after {
+            content: ":";
+            font-size: 4vw;  
+            margin-left: 14px; 
+        }
+        
+        .countdown .label {
+            font-size: 1.5vw;
+        }
+
+        @media (max-width: 768px) {
+            .countdown .value {
+                font-size: 6vw;
+                font-weight: bold;
+            }
+
+            .countdown .days::after,
+            .countdown .hours::after,
+            .countdown .minutes::after {
+                font-size: 6vw;  
+            }
+            
+            .countdown .label {
+                font-size: 3vw;
+            }
+        }
+    </style>
+    
+    
+</head>
+<body>
+    <audio id="bg-music" style="position: absolute;" autoplay muted loop>
+        <source src="./YoullBeinMyHeart.mp3" type="audio/mpeg">
+    </audio>
+
+    <video class="video-bg" autoplay muted loop playsinline>
+        <source src="./prenup.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <button id="unmuteBtn">🔇</button>
+    <div class="overlay">
+        <div class="container">
+            <div class="header">
+                <!-- <p>We're Getting Married!</p> -->
+                <h1>&nbsp;Charl + Gladys</h1>
+                <p>10 · 26 · 25</p>
+            </div>
+
+            <div class="section">
+                <h2>Ceremony</h2>
+                <div class="text-align-center">
+                    <h3>1:30 PM</h3>
+                    <h3>Chapel of San Pedro Calungsod</h3>
+                    <p>SM Seaside Complex, Church Ave, Cebu City, 6000 Cebu</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Reception</h2>
+                <div style="text-align: center;">
+                    <h3>6:00 PM</h3>
+                    <h3>Summit Galleria Hotel</h3>
+                    <p>Robinsons Galleria Cebu B. Benedicto Street, cor General Maxilom Ave Ext, Cebu City, 6000 Cebu</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Attire & Colors</h2>
+                <p style="text-align: center;">Semi-formal Attire</p>
+                <p style="text-align: center;">We'd love to see you in our wedding colors</p>
+                <br>
+                <div class="attire-colors">
+                    <div>
+                        <div class="color-box pastel-yellow-bg"></div>
+                        <p class="color-box-label" style="color: var(--pastel-yellow);">Pastel Yellow</p>
+                    </div>
+                    <div>
+                        <div class="color-box pastel-sage-bg"></div>
+                        <p class="color-box-label" style="color: var(--pastel-sage);">Pastel Sage</p>
+                    </div>
+                    <div>
+                        <div class="color-box blush-pink-bg"></div>
+                        <p class="color-box-label" style="color: var(--blush-pink);">Blush Pink</p>
+                    </div>
+                    <div>
+                        <div class="color-box lilac-bg"></div>
+                        <p class="color-box-label" style="color: var(--lilac);">Lilac</p>
+                    </div>
+                    <div>
+                        <div class="color-box powder-blue-bg"></div>
+                        <p class="color-box-label" style="color: var(--powder-blue)">Powder Blue</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="section" style="text-align: center; display: none;">
+                <h2>We Can't Wait to Celebrate with You!</h2>
+                <p>Your presence is the greatest gift we could ask for. We're so excited to share this special day with our family and friends.</p>
+                <p>Your presence at our wedding is truly the greatest gift we could ever ask for. As much as we love shiny things wrapped in ribbons, we would appreciate cash even more (it’s easier to carry home, too!)—a little blessing to help us start our journey as husband and wife.</p>
+                <p style="margin-top: 20px; font-style: italic;">
+                    "Love is not about how many days, months, or years you have been together.<br>
+                    It's about how much you love each other every single day."
+                </p>
+            </div>
+
+
+            <div id="RSVP" class="section">
+                <h2 title="Reserve Soon Via Pigeon">RSVP</h2>
+                <form id="rsvpForm">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Seven Kaye Gelig">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required placeholder="seven.kaye@meow.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mobile">Mobile</label>
+                        <input type="mobile" id="mobile" name="mobile" required placeholder="+63 923 200 2308">
+                    </div>
+
+                    <button type="submit" class="btn">Send RSVP</button>
+                </form>
+
+                <h4 id="rsvpFailedMessage" class="text-align-center" style="color: #eb1b1b; margin-top: 8px"></h4>
+
+                <div class="rsvp-note">
+                    <p><strong>Please RSVP by September 26, 2024</strong></p>
+                    <p>For questions, contact us at: charlandgladys@gmail.com</p>
+                </div>
+            </div>
+
+            <div id="RSVPed" class="section text-align-center" style="display: none;">
+                <h2>Woohoo! Your RSVP is locked in</h2>
+                <p>We’re saving you a seat, the dance floor is ready, and the food is too good to miss.</p>
+                <p>Can’t wait to celebrate with you!</p>
+                
+                <div class="countdown"> 
+                    <div class="days">
+                        <div>
+                            <div class="value" id="cd-days">00</div>
+                            <div class="label">Days</div>
+                        </div>  
+                    </div> 
+                    <div class="hours">
+                        <div>
+                            <div class="value" id="cd-hours">00</div>
+                            <div class="label">Hours</div>
+                        </div>
+                    </div> 
+                    <div class="minutes">
+                        <div>
+                            <div class="value" id="cd-minutes">00</div>
+                            <div class="label">Min</div>
+                        </div>
+                    </div>
+                    <div class="seconds">
+                        <div>
+                            <div class="value" id="cd-seconds">00</div>
+                            <div class="label">Sec</div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div id="guestListSection" class="accordion">
+                    <button id="toggleGuestList" class="btn">Show Guest List</button>
+                    <ul id="guestList" style="display: none;">
+                        <br>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <br>
+    <br>
+    <br>
+    <script>
+        // RSVP Form Submission
+        const form = document.getElementById("rsvpForm");
+        const submitButton = form.querySelector("button[type='submit']");
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const mobile = document.getElementById("mobile").value.trim();
+
+            let spinner = document.createElement("span");
+            spinner.classList.add("spinner");
+
+            submitButton.disabled = true;
+            submitButton.textContent = "Sending RSVP";
+            submitButton.prepend(spinner);
+
+            try {
+                const res = await fetch("https://script.google.com/macros/s/AKfycbyzhfcmBH7q2t0sDvdVz8pv6FykIObUdXwDxkhYInwulEaDsHOqHbODDXfNxBVNOtogjg/exec", {
+                    method: "POST",
+                    body: new URLSearchParams({ name, email, mobile})
+                });
+
+                const data = await res.json();
+                if (data.status === "success" || data.status === "duplicate") {
+                    form.reset();
+                    document.getElementById("RSVP").style.display = "none";
+                    document.getElementById("RSVPed").style.display = "block";
+                    const guestList = document.getElementById("guestList");
+                    guestList.innerHTML = ""; // Clear existing list
+                    data.rsvps.forEach((guest) => {
+                        const listItem = document.createElement("li");
+                        listItem.textContent = `${guest.name}`;
+                        guestList.appendChild(listItem);
+                    });
+                    document.getElementById("guestListSection").style.display = "block";
+                } else if (data.status === "pending_verification") {
+                    RSVPFailed(data.message);
+                }
+                
+            } catch (err) {
+                RSVPFailed("Something went wrong. Please try again.");
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = "Send RSVP";
+            }
+        });
+
+        function RSVPFailed(message) {
+            var RSVP = document.getElementById("RSVP");
+            RSVP.style.border = "1px solid rgba(235, 27, 27, 0.4)";
+            RSVP.style.boxShadow = `0 4px 20px rgba(235, 27, 27, 0.25),
+                                    0 0 12px rgba(235, 27, 27, 0.15) inset`;
+            
+            var rsvpFailedMessage = document.getElementById("rsvpFailedMessage");
+            rsvpFailedMessage.innerHTML = message;
+            rsvpFailedMessage.style.display = "block";
+            
+        }
+
+        document.getElementById("toggleGuestList").addEventListener("click", () => {
+            const guestList = document.getElementById("guestList");
+            const toggleButton = document.getElementById("toggleGuestList");
+            if (guestList.style.display === "none") {
+                guestList.style.display = "block";
+                toggleButton.textContent = "Hide Guest List";
+                toggleButton.classList.add("active");
+            } else {
+                guestList.style.display = "none";
+                toggleButton.textContent = "Show Guest List";
+                toggleButton.classList.remove("active");
+            }
+        });
+
+    </script>
+    <script>
+        const targetDate = new Date("2025-10-26T13:30:00+08:00");
+      
+        function pad(n, width) {
+            return n.toString().padStart(width, '0');
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.getElementById("cd-message").innerHTML = "It's Wedding Time! 💍";
+                return;
+            }
+
+            const totalSeconds = Math.floor(diff / 1000);
+            const days = Math.floor(totalSeconds / (60 * 60 * 24));
+            const hours = Math.floor((totalSeconds / (60 * 60)) % 24);
+            const minutes = Math.floor((totalSeconds / 60) % 60);
+            const seconds = totalSeconds % 60;
+
+            const dayDigits = days >= 100 ? 3 : 2;
+            document.getElementById("cd-days").textContent = pad(days, dayDigits);
+            document.getElementById("cd-hours").textContent = pad(hours, 2);
+            document.getElementById("cd-minutes").textContent = pad(minutes, 2);
+            document.getElementById("cd-seconds").textContent = pad(seconds, 2);
+        }
+
+      
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+    <script>    
+        document.getElementById("unmuteBtn").addEventListener("click", () => {
+            const audio = document.getElementById("bg-music");
+            audio.muted = !audio.muted; 
+
+            if (audio.muted) {
+                document.getElementById("unmuteBtn").textContent = "🔇";
+                audio.pause();
+                return;
+            } else {
+                document.getElementById("unmuteBtn").textContent = "🔊";
+                audio.play();
+            }
+        });
+      </script>
+</body>
+</html>
+
+</style>
