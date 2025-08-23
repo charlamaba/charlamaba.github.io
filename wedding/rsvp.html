@@ -334,10 +334,6 @@
         }
 
         @media (max-width: 768px) {
-            body {
-                background-image: url('./wedding_loop.gif');
-            }
-
             .header h1 {
                 font-size: 15vw;
             }
@@ -539,7 +535,7 @@
 
                     <div class="form-group">
                         <label for="mobile">Mobile</label>
-                        <input type="mobile" id="mobile" name="mobile" required placeholder="+63 923 200 2308">
+                        <input type="mobile" id="mobile" name="mobile" required placeholder="09232002308">
                     </div>
 
                     <button type="submit" class="btn">Send RSVP</button>
@@ -617,7 +613,7 @@
             submitButton.prepend(spinner);
 
             try {
-                const res = await fetch("https://script.google.com/macros/s/AKfycbyzhfcmBH7q2t0sDvdVz8pv6FykIObUdXwDxkhYInwulEaDsHOqHbODDXfNxBVNOtogjg/exec", {
+                const res = await fetch("https://script.google.com/macros/s/AKfycbw0_wul7x3EjR2rxxQ0N7qnelsbIMvNJ-n9OVO1XjsXS2908UpbDdDOgplSPHXAk13fTg/exec", {
                     method: "POST",
                     body: new URLSearchParams({ name, email, mobile})
                 });
