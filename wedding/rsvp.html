@@ -717,6 +717,14 @@
                 audio.play();
             }
         });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const video = document.getElementById("video-bg");
+            video.play().catch(() => {
+                // video.style.display = "none";
+                // fallback.style.display = "block";
+            });
+        });
       </script>
 </body>
 </html>
