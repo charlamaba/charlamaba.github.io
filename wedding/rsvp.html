@@ -13,7 +13,6 @@
             --blush-pink: #F9C0C0;
             --lilac: #C8A2C8;
             --powder-blue: #B0E0E6;
-            --vh: 100%;
         }
 
         * {
@@ -39,7 +38,7 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: calc(var(--vh, 1vh) * 105);
+            height: calc(var(--vh, 1vh) * 100);
             object-fit: cover;
             z-index: -1;
             display: none
@@ -782,24 +781,6 @@
             }
         });
      
-        document.addEventListener("DOMContentLoaded", () => {
-            setVH();
-            const video = document.getElementById("video-bg");
-            video.play().catch(() => {
-                // video.style.display = "none";
-                // fallback.style.display = "block";
-            });
-        });
-
-        function setVH() {
-            document.documentElement.style.setProperty(
-                '--vh',
-                window.innerHeight * 0.01 + 'px'
-            );
-        }
-
-        // Reset on resize (when browser menu hides/shows)
-        window.addEventListener('resize', setVH);
     </script>
 </body>
 </html>
