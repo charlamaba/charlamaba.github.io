@@ -326,6 +326,13 @@
             text-align: center
         }
 
+        .entourage-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            text-align: center;
+        }
+
         /* Mobile Responsiveness */
         @media (max-width: 900px) {
             .header h1 {
@@ -472,7 +479,7 @@
 
             <div class="section">
                 <h2>Reception</h2>
-                <div style="text-align: center;">
+                <div class="text-align-center">
                     <h3>6:00 PM</h3>
                     <h3>Summit Galleria Hotel</h3>
                     <p>Robinsons Galleria Cebu B. Benedicto Street, cor General Maxilom Ave Ext, Cebu City, 6000 Cebu</p>
@@ -481,8 +488,8 @@
 
             <div class="section">
                 <h2>Attire & Colors</h2>
-                <p style="text-align: center;">Semi-formal Attire</p>
-                <p style="text-align: center;">We'd love to see you in our wedding colors</p>
+                <p class="text-align-center">Semi-formal Attire</p>
+                <p class="text-align-center">We'd love to see you in our wedding colors</p>
                 <br>
                 <div class="attire-colors">
                     <div>
@@ -509,7 +516,7 @@
                 </div>
             </div>
 
-            <div class="section" style="text-align: center; display: none;">
+            <div class="section text-align-center" style="display: none;">
                 <h2>We Can't Wait to Celebrate with You!</h2>
                 <p>Your presence is the greatest gift we could ask for. We're so excited to share this special day with our family and friends.</p>
                 <p>Your presence at our wedding is truly the greatest gift we could ever ask for. As much as we love shiny things wrapped in ribbons, we would appreciate cash even more (it’s easier to carry home, too!)—a little blessing to help us start our journey as husband and wife.</p>
@@ -517,6 +524,61 @@
                     "Love is not about how many days, months, or years you have been together.<br>
                     It's about how much you love each other every single day."
                 </p>
+            </div>
+
+            <div class="section">
+                <h2>Wedding Entourage</h2>
+                
+                <div style="margin-bottom: 30px;">
+                    <div class="entourage-grid">
+                        <div>
+                            <h4>Ninong</h4>
+                            <p>Bannie Yu</p>
+                            <p>Benito Otero</p>
+                        </div>
+                        <div>
+                            <h4>Ninang</h4>
+                            <p>Jarren Gelig Amit</p>
+                            <p>Maristel Gelig Micarsos</p>
+                        </div>
+                    </div>
+                </div>
+            
+                <div style="margin-bottom: 30px;">
+                    <div class="entourage-grid">
+                        <div>
+                            <h4>Best Man</h4>
+                            <p>Carl C. Amaba</p>
+                        </div>
+                        <div>
+                            <h4>Maid of Honor</h4>
+                            <p>Kharla Faye Gelig</p>
+                        </div>
+                    </div>
+                </div>
+            
+                <div style="margin-bottom: 20px;">
+                    <div class="entourage-grid">
+                        <div>
+                            <h4>Groomsmen</h4>
+                            <p>Chad C. Amaba</p>
+                            <p>Mark Vincent Medalla</p>
+                            <p>Rhoxerlan Montecillo</p>
+                            <p>Vince Mark Canama</p>
+                            <p>Kent Francisco</p>
+                            <p>Melbert Mabignay</p>
+                        </div>
+                        <div>
+                            <h4>Bridesmaids</h4>
+                            <p>Jesser Chio</p>
+                            <p>Joshua Regler Ala-an</p>
+                            <p>Christine Gaspe</p>
+                            <p>Cherry Mancera</p>
+                            <p>Dianne Saqueton</p>
+                            <p>Liezel Deligero</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
 
@@ -588,6 +650,8 @@
                     </ul>
                 </div>
             </div>
+
+
         </div>
     </div>
 
