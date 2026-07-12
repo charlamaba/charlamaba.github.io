@@ -30,6 +30,10 @@
             100% { background-position: 0 50%; }
         }
 
+        :root {
+            --gradient-offset: 0;
+        }
+
         body {
             font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             display: flex;
@@ -58,7 +62,8 @@
                 linear-gradient(127deg, rgb(0 200 0), transparent 100%),
                 linear-gradient(336deg, rgb(0 0 200), transparent 100%); */
             background-size: 400%;
-            animation: gradientFlow 12s ease infinite;
+            animation: gradientFlow 16s ease infinite;
+            animation-delay: calc(var(--gradient-offset) * -1s);
             transition: background 2s ease;
         }
 
@@ -385,13 +390,13 @@
         .tech-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 6px;
+            gap: 7px;
         }
 
         .tech-tag {
             font-size: 0.72rem;
             font-weight: 500;
-            padding: 3px 10px;
+            padding: 5px 10px;
             border-radius: 20px;
             background: rgba(0,0,0,0.06);
             color: rgba(0,0,0,0.55); 
@@ -457,6 +462,15 @@
             }
         }
     </style>
+    <script>
+        // Sync gradientFlow's phase to wall-clock time so it looks continuous across reloads
+        // instead of restarting at 0% every time the page loads.
+        (function () {
+            var durationSeconds = 16;
+            var offset = (Date.now() / 1000) % durationSeconds;
+            document.documentElement.style.setProperty('--gradient-offset', offset);
+        })();
+    </script>
 </head>
 <body>
 
@@ -467,30 +481,30 @@
         <h1>Charl Amaba</h1>
         <p class="subtitle">Software Development Engineer</p>
         <div class="contacts">
-            <a href="tel:+639770041745" class="contact-pill">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <a href="tel:+639770041745" class="contact-pill" aria-label="Call 0977 004 1745">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
                 </svg>
                 <span>0977 004 1745</span>
             </a>
 
-            <a href="mailto:charlamaba@gmail.com" class="contact-pill">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <a href="mailto:charlamaba@gmail.com" class="contact-pill" aria-label="Email charlamaba@gmail.com">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
                 <polyline points="22,6 12,13 2,6"/>
                 </svg>
                 <span>charlamaba@gmail.com</span>
             </a>
 
-            <a href="https://linkedin.com/in/charlamaba" target="_blank" rel="noopener noreferrer" class="contact-pill shrink-early">
-                <svg class="icon" viewBox="0 0 24 24" fill="currentColor">
+            <a href="https://linkedin.com/in/charlamaba" target="_blank" rel="noopener noreferrer" class="contact-pill shrink-early" aria-label="LinkedIn profile">
+                <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.36 4.26 5.43v6.31zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45z"/>
                 </svg>
                 <span>LinkedIn</span>
             </a>
 
-            <a href="https://drive.google.com/uc?export=download&amp;id=1He-bGZ4kG_Sju7fBhOf6RWjJL8GxophF" download class="contact-pill shrink-early">
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <a href="https://drive.google.com/uc?export=download&amp;id=1He-bGZ4kG_Sju7fBhOf6RWjJL8GxophF" download class="contact-pill shrink-early" aria-label="Download CV">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                     <polyline points="7 10 12 15 17 10"/>
                     <line x1="12" y1="15" x2="12" y2="3"/>
@@ -507,23 +521,23 @@
         <div class="timeline-line"></div>
         <div class="timeline-progress" id="timelineProgress"></div>
 
-        <button class="timeline-node" data-index="0" onclick="scrollToSection(0)">
-            <img src="https://res.cloudinary.com/df8ibhdrf/image/upload/v1744006415/sk_logo.svg_waedc6.png" style="padding: 1px;" alt="SK">
+        <button class="timeline-node" data-index="0" onclick="scrollToSection(0)" aria-label="Sangunian Kabataan">
+            <img src="https://res.cloudinary.com/df8ibhdrf/image/upload/v1744006415/sk_logo.svg_waedc6.png" style="padding: 1px;" alt="" aria-hidden="true">
         </button>
 
-        <button class="timeline-node" data-index="1" onclick="scrollToSection(1)">
+        <button class="timeline-node" data-index="1" onclick="scrollToSection(1)" aria-label="University of San Carlos">
             <!-- <img src="https://res.cloudinary.com/df8ibhdrf/image/upload/v1744006415/usc_logo_lkpei6.jpg" alt="USC"> -->
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAMAAAB61OwbAAAA2FBMVEVHcEwKrkb/wg4LrUoHqWAbsVMPrkwTr0//wg4MrUsPrkwHpT0yt2Mvt2AMrUv/wQ8NrVEWsFAOrksGrEkIqlo8vGv/AgD/CgAQp+AJrUr/CAD/CAD/DQH/AgAQp+IQp+AQp+ENrkwSr04Prk0Tq0kFrOoRp+ExuGIis1j/CQD/AAAAr+oQp+D/JiL/Qj0CpOGa1/EQp+D/l5P/u7dwxev////X8fo+s+T/f3n/W1UIrUj/bGcQrk3/AAC9YCcMqrENrkwAs09Xw3wDrEVzyo/n9+3V8eAPrk0f+tPAAAAASHRSTlMADkAoBNf/d7Ne5wnI6IIFNP+SUhX/C31nZzvz/8hFyP/1qc0fxI//////zI7/////o///////////Pv+frfv7t////////0zCrrANAAACGklEQVR4AWXSh1quIAAG4I9EDO0nZ9tStAPtvTgN/33/dxT42H7dfsrGN4QAKyv99S+Pej4LgNVVIGC+fcQPPIzWRgLA+joAMVqLQo5v4iQNMnyTBWkS41OeFUlINjYx2MpJmBRZjsF2EAfb2NndK3c2ALp/UFX7w8serWXTYnOvVx5WvX9oG1lTOLnScsiPjssTmzqnkFrlsAjSAMCmTY/PzsuTi+ry4qK6AhCkIAAaksUAxe7e9fX1TXl4e3d3/3BBAcQZaYCW8TqGVdr88ak8uXdOYJmasxaeDpMI1u714/Xj//Lk8u727vICVpSE2gNG6hnWzvH5zfXNWXlye/dw93CxD+tZjQAQTmC9HNs2Hh+XhxdWVR0AQ5QSLgG0r4O3QQxAcpIiFF3oShtbk/FYFdPpJJky1gEIOxHiOdE+AJ8xpifTqbLHRNuHkAK+Tp6R+4WhoDWzppOZVrPJlDkRqCn8HMB2JN0HLp/fzed3CzV8IKNtAO2y5SxH13+w6D8oXBENcsZt6FqS6gze7w8MMp327TdMFcbD0n4wW8wXdncfcHimUPYzy8hntwLz51rNeprJ1q3SZ2kwCET/rUnD6bRODXXligADeE3aKZkTWCKFRXKpurTxMDBMF9JjXYte2zFPFtoV+okvWyESjZ5OhGiXHD+RpRxNhAd4YjKSS4Lflk3NJHjTcEhWN0v8RQnIszHP9kLx6R1DnUzaizK2BAAAAABJRU5ErkJggg==" alt="USC">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAMAAAB61OwbAAAA2FBMVEVHcEwKrkb/wg4LrUoHqWAbsVMPrkwTr0//wg4MrUsPrkwHpT0yt2Mvt2AMrUv/wQ8NrVEWsFAOrksGrEkIqlo8vGv/AgD/CgAQp+AJrUr/CAD/CAD/DQH/AgAQp+IQp+AQp+ENrkwSr04Prk0Tq0kFrOoRp+ExuGIis1j/CQD/AAAAr+oQp+D/JiL/Qj0CpOGa1/EQp+D/l5P/u7dwxev////X8fo+s+T/f3n/W1UIrUj/bGcQrk3/AAC9YCcMqrENrkwAs09Xw3wDrEVzyo/n9+3V8eAPrk0f+tPAAAAASHRSTlMADkAoBNf/d7Ne5wnI6IIFNP+SUhX/C31nZzvz/8hFyP/1qc0fxI//////zI7/////o///////////Pv+frfv7t////////0zCrrANAAACGklEQVR4AWXSh1quIAAG4I9EDO0nZ9tStAPtvTgN/33/dxT42H7dfsrGN4QAKyv99S+Pej4LgNVVIGC+fcQPPIzWRgLA+joAMVqLQo5v4iQNMnyTBWkS41OeFUlINjYx2MpJmBRZjsF2EAfb2NndK3c2ALp/UFX7w8serWXTYnOvVx5WvX9oG1lTOLnScsiPjssTmzqnkFrlsAjSAMCmTY/PzsuTi+ry4qK6AhCkIAAaksUAxe7e9fX1TXl4e3d3/3BBAcQZaYCW8TqGVdr88ak8uXdOYJmasxaeDpMI1u714/Xj//Lk8u727vICVpSE2gNG6hnWzvH5zfXNWXlye/dw93CxD+tZjQAQTmC9HNs2Hh+XhxdWVR0AQ5QSLgG0r4O3QQxAcpIiFF3oShtbk/FYFdPpJJky1gEIOxHiOdE+AJ8xpifTqbLHRNuHkAK+Tp6R+4WhoDWzppOZVrPJlDkRqCn8HMB2JN0HLp/fzed3CzV8IKNtAO2y5SxH13+w6D8oXBENcsZt6FqS6gze7w8MMp327TdMFcbD0n4wW8wXdncfcHimUPYzy8hntwLz51rNeprJ1q3SZ2kwCET/rUnD6bRODXXligADeE3aKZkTWCKFRXKpurTxMDBMF9JjXYte2zFPFtoV+okvWyESjZ5OhGiXHD+RpRxNhAd4YjKSS4Lflk3NJHjTcEhWN0v8RQnIszHP9kLx6R1DnUzaizK2BAAAAABJRU5ErkJggg==" alt="" aria-hidden="true">
         </button>
 
-        <button class="timeline-node" data-index="2" onclick="scrollToSection(2)">
+        <button class="timeline-node" data-index="2" onclick="scrollToSection(2)" aria-label="KYOCERA Document Solutions Development Philippines">
             <!-- <img src="https://res.cloudinary.com/df8ibhdrf/image/upload/v1744006414/kyocera_logo_g87kwt.jpg" alt="KYOCERA"> -->
-             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA3UlEQVR4AWJwL/AZUEw1g+6zKUsDcRwBbAZovoyNGAaBINiVy6MLOqABWnELRDRhm+CiD3ZGnhvpggvEIHaFJHisAgX+pSiTBRxwzmABP9wpwHC/AMNfGtAroMH7yT5ZNWqfJ00zQPn8KzDgCZb6rJNOs+QXEFx93mrr9wgIXgWUfkGgXRcQHAQkAQIgygIVXgQAIAGGs4DgJAASEgA4CMyTrWsWAAmGs0Djm1hA6TxOuMB49hUEfIQhv2HAQhSwFAdsRjXbvx2nFST+ejC/KM0vy50SI/xoln849ecHdkt26LEL5nEAAAAASUVORK5CYII=" alt="KYOCERA" >
+             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA3UlEQVR4AWJwL/AZUEw1g+6zKUsDcRwBbAZovoyNGAaBINiVy6MLOqABWnELRDRhm+CiD3ZGnhvpggvEIHaFJHisAgX+pSiTBRxwzmABP9wpwHC/AMNfGtAroMH7yT5ZNWqfJ00zQPn8KzDgCZb6rJNOs+QXEFx93mrr9wgIXgWUfkGgXRcQHAQkAQIgygIVXgQAIAGGs4DgJAASEgA4CMyTrWsWAAmGs0Djm1hA6TxOuMB49hUEfIQhv2HAQhSwFAdsRjXbvx2nFST+ejC/KM0vy50SI/xoln849ecHdkt26LEL5nEAAAAASUVORK5CYII=" alt="" aria-hidden="true">
         </button>
 
-        <button class="timeline-node" data-index="3" onclick="scrollToSection(3)">
+        <button class="timeline-node" data-index="3" onclick="scrollToSection(3)" aria-label="TrustArc">
             <!-- <img src="https://res.cloudinary.com/df8ibhdrf/image/upload/v1744006414/trustarc_logo_rzvezc.jpg" alt="TrustArc"> -->
-             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAALVBMVEVHcEw2mfA2mfA2mfA2mfA2mfA2mfA2mfA2mfA2mfA2mfA2mfA2mfA2mfA2mfCIYYCFAAAADnRSTlMA7sNhGf5ChjLfiwmPjoyDGPwAAADISURBVCiRfZMLDsQgCEQBpWq76/2Pu6gVf2QnadL0KQM6BeiKgZAZKUTY5TCr0C3IpzyLyA92TYDRRVl6WSxd4DJnpX5yk0/0vrfKw+8GeLSxVPvUbbLW8yhTeu5LaXWQxTL722QQ9vAMc4QwagAuLIfWHFdGKxMj1H33xsSU2whqPokLJDAMK0R5isLBpCy1U3xOJhW/rejHgAFiO2CD5R4JZzDsV7rPX6RhMViystClMTqHZA2RYTnYHs2cpmj+D3W9lfN3+AFaMRr3mCi0vAAAAABJRU5ErkJggg==" alt="TrustArc">
+             <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAALVBMVEVHcEw2mfA2mfA2mfA2mfA2mfA2mfA2mfA2mfA2mfA2mfA2mfA2mfA2mfA2mfCIYYCFAAAADnRSTlMA7sNhGf5ChjLfiwmPjoyDGPwAAADISURBVCiRfZMLDsQgCEQBpWq76/2Pu6gVf2QnadL0KQM6BeiKgZAZKUTY5TCr0C3IpzyLyA92TYDRRVl6WSxd4DJnpX5yk0/0vrfKw+8GeLSxVPvUbbLW8yhTeu5LaXWQxTL722QQ9vAMc4QwagAuLIfWHFdGKxMj1H33xsSU2whqPokLJDAMK0R5isLBpCy1U3xOJhW/rejHgAFiO2CD5R4JZzDsV7rPX6RhMViystClMTqHZA2RYTnYHs2cpmj+D3W9lfN3+AFaMRr3mCi0vAAAAABJRU5ErkJggg==" alt="" aria-hidden="true">
         </button>
     </div>
 </nav>
@@ -871,6 +885,11 @@
     function setActiveNode(index) {
         nodes.forEach((n, i) => {
             n.classList.toggle('active', i === index);
+            if (i === index) {
+                n.setAttribute('aria-current', 'true');
+            } else {
+                n.removeAttribute('aria-current');
+            }
         });
         // Update progress bar width
         const pct = (index / (totalSections - 1)) * 100;
